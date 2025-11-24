@@ -1,37 +1,56 @@
-# Inventory Management System
-An Inventory Management System software for desktop to manage inventory.
+% -------------------------------
+% Inventory Management System
+% -------------------------------
 
-## Screenshots
+:- dynamic item/3.
+% item(ID, Name, Quantity).
 
-![Screenshot 1](https://github.com/nixrajput/inventory-management-system/blob/master/Screenshot%20(1).png)
+% Add a new item
+add_item(ID, Name, Quantity) :-
+    \+ item(ID, _, _),
+    assert(item(ID, Name, Quantity)),
+    write('Item added successfully!'), nl.
 
-![Screenshot 2](https://github.com/nixrajput/inventory-management-system/blob/master/Screenshot%20(2).png)
+add_item(ID, _, _) :-
+    item(ID, _, _),
+    write('Error: Item with same ID already exists!'), nl.
 
-![Screenshot 3](https://github.com/nixrajput/inventory-management-system/blob/master/Screenshot%20(3).png)
+% Remove an item
+remove_item(ID) :-
+    item(ID, Name, _),
+    retract(item(ID, Name, _)),
+    write('Item removed successfully!'), nl.
 
-## App Features
+remove_item(_) :-
+    write('Error: Item not found!'), nl.
 
-- Manage brand collections and status.
-- Manage category collections and status.
-- Manage product collections and status.
-- Manage orders received or delivered.
-- Print Invoices and Reports.
+% Update quantity
+update_quantity(ID, NewQ) :-
+    item(ID, Name, _),
+    retract(item(ID, Name, _)),
+    assert(item(ID, Name, NewQ)),
+    write('Quantity updated!'), nl.
 
-## Connect With Me
+update_quantity(_, _) :-
+    write('Error: Cannot update quantity, item not found!'), nl.
 
-[<img align="left" alt="nixrajput | GitHub" width="24px" src="https://raw.githubusercontent.com/nixrajput/nixlab-files/master/images/icons/github-brands.svg" />][website]
+% Search item
+search_item(ID) :-
+    item(ID, Name, Quantity),
+    write('Item Found: '), nl,
+    write('ID: '), write(ID), nl,
+    write('Name: '), write(Name), nl,
+    write('Quantity: '), write(Quantity), nl.
 
-[<img align="left" alt="nixrajput | Facebook" width="24px" src="https://raw.githubusercontent.com/nixrajput/nixlab-files/master/images/icons/facebook-brands.svg" />][facebook]
+search_item(_) :-
+    write('Item not found!'), nl.
 
-[<img align="left" alt="nixrajput | Twitter" width="24px" src="https://raw.githubusercontent.com/nixrajput/nixlab-files/master/images/icons/twitter-brands.svg" />][twitter]
+% Display Inventory
+display_inventory :-
+    write('--- Inventory Items ---'), nl,
+    item(ID, Name, Quantity),
+    write(ID), write(' | '), write(Name), write(' | Qty: '), write(Quantity), nl,
+    fail.
 
-[<img align="left" alt="nixrajput | LinkedIn" width="24px" src="https://raw.githubusercontent.com/nixrajput/nixlab-files/master/images/icons/linkedin-in-brands.svg" />][linkedin]
+display_inventory.
 
-[<img align="left" alt="nixrajput | Instagram" width="24px" src="https://raw.githubusercontent.com/nixrajput/nixlab-files/master/images/icons/instagram-brands.svg" />][instagram]
-
-[github]: https://github.com/nixrajput
-[website]: https://github.com/nixrajput
-[facebook]: https://facebook.com/nixrajput07
-[twitter]: https://facebook.com/nixrajput07
-[instagram]: https://instagram.com/nixrajput
-[linkedin]: https://linkedin.com/in/nixrajput
