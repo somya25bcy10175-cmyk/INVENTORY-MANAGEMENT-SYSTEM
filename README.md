@@ -1,56 +1,65 @@
-% -------------------------------
-% Inventory Management System
-% -------------------------------
+# 📦 Inventory Management System (IMS)
 
-:- dynamic item/3.
-% item(ID, Name, Quantity).
+## 📝 Description
 
-% Add a new item
-add_item(ID, Name, Quantity) :-
-    \+ item(ID, _, _),
-    assert(item(ID, Name, Quantity)),
-    write('Item added successfully!'), nl.
+This is a *Python-based Inventory Management System* designed to help small to medium businesses efficiently track and manage their stock. It provides a simple command-line interface (or a web/GUI interface, depending on your implementation) to perform all essential inventory operations.
 
-add_item(ID, _, _) :-
-    item(ID, _, _),
-    write('Error: Item with same ID already exists!'), nl.
+## ✨ Features
 
-% Remove an item
-remove_item(ID) :-
-    item(ID, Name, _),
-    retract(item(ID, Name, _)),
-    write('Item removed successfully!'), nl.
+* *Add New Items:* Easily add new products with details like name, price, and initial stock quantity.
+* *Update Stock:* Adjust item quantities (e.g., for sales or restocks).
+* *Delete Items:* Remove discontinued or obsolete items from the inventory.
+* *View Inventory:* Display a comprehensive list of all items, their current stock levels, and total value.
+* *Search/Filter:* Find specific items by name, ID, or other attributes.
+* *Low Stock Alerts:* Automatic notifications when an item's quantity drops below a defined threshold.
+* *Data Persistence:* Item data is saved (e.g., to a CSV file or database) for continuity.
 
-remove_item(_) :-
-    write('Error: Item not found!'), nl.
+## 🛠 Technology Stack
 
-% Update quantity
-update_quantity(ID, NewQ) :-
-    item(ID, Name, _),
-    retract(item(ID, Name, _)),
-    assert(item(ID, Name, NewQ)),
-    write('Quantity updated!'), nl.
+* *Core Language:* Python 3.x
+* *Framework/Library (Optional - choose one that applies):*
+    * Command Line: Standard Python libraries.
+    * Web App: [e.g., Flask, Django]
+    * GUI: [e.g., Tkinter, PyQt]
+* *Database (Optional):* [e.g., SQLite, PostgreSQL, MongoDB]
+* *Dependencies:* List specific Python packages required.
 
-update_quantity(_, _) :-
-    write('Error: Cannot update quantity, item not found!'), nl.
+## ⚙ Installation
 
-% Search item
-search_item(ID) :-
-    item(ID, Name, Quantity),
-    write('Item Found: '), nl,
-    write('ID: '), write(ID), nl,
-    write('Name: '), write(Name), nl,
-    write('Quantity: '), write(Quantity), nl.
+Follow these steps to get your local copy of the project up and running.
 
-search_item(_) :-
-    write('Item not found!'), nl.
+### Prerequisites
 
-% Display Inventory
-display_inventory :-
-    write('--- Inventory Items ---'), nl,
-    item(ID, Name, Quantity),
-    write(ID), write(' | '), write(Name), write(' | Qty: '), write(Quantity), nl,
-    fail.
+You need *Python 3.x* installed on your system.
 
-display_inventory.
+### Steps
 
+1.  *Clone the Repository:*
+    bash
+    git clone [https://github.com/YourUsername/Inventory-Management-System.git](https://github.com/YourUsername/Inventory-Management-System.git)
+    cd Inventory-Management-System
+    
+
+2.  *Create a Virtual Environment (Recommended):*
+    bash
+    python -m venv venv
+    # On Windows:
+    .\venv\Scripts\activate
+    # On macOS/Linux:
+    source venv/bin/activate
+    
+
+3.  *Install Dependencies:*
+    bash
+    pip install -r requirements.txt
+    
+    *(Note: Create a requirements.txt file by running pip freeze > requirements.txt if you already have the dependencies installed.)*
+
+## 🚀 Usage
+
+### Running the Application
+
+Execute the main Python script:
+
+```bash
+python main.py 
